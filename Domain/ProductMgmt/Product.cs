@@ -13,12 +13,12 @@ namespace PieShop.InventoryMgmt
         private string? description;
 
         private int maxItemsInStock = 0;
-        
+
 
 
         public int Id
         {
-            get { return id; } 
+            get { return id; }
             set
             {
                 id = value;
@@ -54,6 +54,8 @@ namespace PieShop.InventoryMgmt
         public int AmountInStock { get; private set; } // this value is avail for use inside the class only.
         public bool IsBelowStockThreshold { get; private set; }
 
+        public Price Price { get; set; }
+
         public Product(int id) : this(id, string.Empty)
         {
         }
@@ -64,15 +66,16 @@ namespace PieShop.InventoryMgmt
             Name = name;
         }
 
-        public Product (int id, string name, string? description, UnitType unitType, int maxAmountInStock)
+        public Product(int id, string name, string? description, Price price, UnitType unitType, int maxAmountInStock)
         {
             Id = id;
             Name = name;
             Description = description;
+            Price = price;
             UnitType = unitType;
 
             maxItemsInStock = maxAmountInStock;
-            
+
             if (AmountInStock < 10)
             {
                 IsBelowStockThreshold = true;
@@ -89,9 +92,9 @@ namespace PieShop.InventoryMgmt
 
         public void UseProduct(int items)
         {
-            if (items <= AmountInStock) 
+            if (items <= AmountInStock)
             { //use the items
-              AmountInStock -= items;
+                AmountInStock -= items;
                 UpdateLowStock();
                 Log($"Amount in stock updated. Now {AmountInStock} items in stock.");
             }
@@ -127,7 +130,7 @@ namespace PieShop.InventoryMgmt
 
         private void DecreaseStock(int items, string reason)
         {
-            if(items <= AmountInStock)
+            if (items <= AmountInStock)
             {
                 AmountInStock -= items;
             }
@@ -154,7 +157,7 @@ namespace PieShop.InventoryMgmt
         public string DisplayDetailsFull(string extraDetails)
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"{Id} {Name} \n{Description}\n{AmountInStock} item(s) in stock.");
+            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock.");
             sb.Append(extraDetails);
             if (IsBelowStockThreshold)
             {
@@ -165,7 +168,7 @@ namespace PieShop.InventoryMgmt
 
         public void UpdateLowStock()
         {
-            if(AmountInStock < 10) //for now, a fixed value.
+            if (AmountInStock < 10) //for now, a fixed value.
             {
                 IsBelowStockThreshold = true;
             }
@@ -184,4 +187,3 @@ namespace PieShop.InventoryMgmt
     }
 }
 
- 
