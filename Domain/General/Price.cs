@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PieShop.InventoryMgmt
+namespace PieShop.InventoryMgmt.Domain.General
 {
     public class Price
     {
@@ -13,6 +13,12 @@ namespace PieShop.InventoryMgmt
         public override string ToString()
         {
             return $"{ItemPrice} {Currency}"; //now when we call ToString() on Price, it will exhibit this behavior because of the override keyword.
+        }
+
+        public Price(double price, Currency currency)
+        {
+            ItemPrice = price;
+            Currency = currency;
         }
     }
 

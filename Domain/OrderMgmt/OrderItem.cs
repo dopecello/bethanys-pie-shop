@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace PieShop.InventoryMgmt.Domain.OrderMgmt
 {
-    internal class OrderItem
+    public class OrderItem
     {
+        public int Id { get; set; }
+        public int ProductId { get; set; }
+        public string ProductName { get; set; } = string.Empty;
+        public string AmountOrdered { get; set; }
+        public override string ToString()
+        {
+            return $"Product ID: {ProductId} - Name: {ProductName} - Amount ordered: {AmountOrdered}";
+        }
     }
 }

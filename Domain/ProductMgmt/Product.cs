@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PieShop.InventoryMgmt.Domain.General;
+using PieShop.InventoryMgmt.Domain.ProductMgmt;
 
 namespace PieShop.InventoryMgmt
 {
-    public class Product
+    public partial class Product
     {
         private int id;
         private string name = string.Empty;
@@ -128,22 +130,6 @@ namespace PieShop.InventoryMgmt
             }
         }
 
-        private void DecreaseStock(int items, string reason)
-        {
-            if (items <= AmountInStock)
-            {
-                AmountInStock -= items;
-            }
-            else
-            {
-                AmountInStock = 0;
-            }
-
-            UpdateLowStock();
-
-            Log(reason);
-        }
-
         public string DisplayDetailsShort()
         {
             return $"{id}. {name} \n{description}\n{AmountInStock} items(s) in stock.";
@@ -164,25 +150,6 @@ namespace PieShop.InventoryMgmt
                 sb.Append("\n!!STOCK LOW!!");
             }
             return sb.ToString();
-        }
-
-        public void UpdateLowStock()
-        {
-            if (AmountInStock < 10) //for now, a fixed value.
-            {
-                IsBelowStockThreshold = true;
-            }
-        }
-
-        private void Log(string message)
-        {
-            //this could be written to a file
-            Console.WriteLine(message);
-        }
-
-        private string CreateSimpleProductRepresentation()
-        {
-            return $"Product {id} ({name})";
         }
     }
 }

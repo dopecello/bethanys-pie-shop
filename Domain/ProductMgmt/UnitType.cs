@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PieShop.InventoryMgmt
+namespace PieShop.InventoryMgmt.Domain.ProductMgmt
 {
     public enum UnitType
     {
