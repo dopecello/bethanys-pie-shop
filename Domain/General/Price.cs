@@ -14,13 +14,5 @@ namespace PieShop.InventoryMgmt.Domain.General
         {
             return $"{ItemPrice} {Currency}"; //now when we call ToString() on Price, it will exhibit this behavior because of the override keyword.
         }
-
-        public Price(double price, Currency currency)
-        {
-            ItemPrice = price;
-            Currency = currency;
-        }
     }
-
-
 }

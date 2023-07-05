@@ -8,6 +8,15 @@ namespace PieShop.InventoryMgmt
 { //added private methods into this class to clean up the code.
     public partial class Product
     {
+        public static int StockThreshold = 5;
+
+        public static void ChangeStockThreshold(int newStockThreshold)
+        {
+            // we will only allow this to go through if the value is > 0
+            if (newStockThreshold > 0)
+                StockThreshold = newStockThreshold;
+        }
+
         private void Log(string message)
         {
             //this could be written to a file
@@ -21,7 +30,7 @@ namespace PieShop.InventoryMgmt
 
         private void UpdateLowStock()
         {
-            if (AmountInStock < 10) //for now, a fixed value.
+            if (AmountInStock < StockThreshold) //for now, a fixed value.
             {
                 IsBelowStockThreshold = true;
             }
