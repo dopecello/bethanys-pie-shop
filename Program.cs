@@ -18,6 +18,11 @@ Product p3 = new(3, "Strawberry", "lorem ipsum", samplePrice, UnitType.PerBox, 1
 
 PrintWelcome();
 
+Utilities.InitializeStock();
+Utilities.ShowMainMenu();
+Console.WriteLine("application shutting down...");
+Console.ReadLine();
+
 #region Layout
 static void PrintWelcome()
 {

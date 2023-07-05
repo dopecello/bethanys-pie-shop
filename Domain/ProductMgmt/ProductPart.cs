@@ -28,7 +28,7 @@ namespace PieShop.InventoryMgmt
             return $"Product {id} ({name})";
         }
 
-        private void UpdateLowStock()
+        public void UpdateLowStock()
         {
             if (AmountInStock < StockThreshold) //for now, a fixed value.
             {
