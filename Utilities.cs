@@ -18,9 +18,12 @@ namespace PieShop.InventoryMgmt
 
         internal static void InitializeStock()//Mock implementation
         {
-            inventory.Add(new Product(1, "Sugar", "Lorem ipsum", new Price() { ItemPrice = 10, Currency = Currency.Euro }, UnitType.PerKg, 100));
-            inventory.Add(new Product(2, "Cake decorations", "Lorem ipsum", new Price() { ItemPrice = 8, Currency = Currency.Euro }, UnitType.PerItem, 20));
-            inventory.Add(new Product(3, "Strawberry", "Lorem ipsum", new Price() { ItemPrice = 3, Currency = Currency.Euro }, UnitType.PerBox, 10));
+            //inventory.Add(new Product(1, "Sugar", "Lorem ipsum", new Price() { ItemPrice = 10, Currency = Currency.Euro }, UnitType.PerKg, 100));
+            //inventory.Add(new Product(2, "Cake decorations", "Lorem ipsum", new Price() { ItemPrice = 8, Currency = Currency.Euro }, UnitType.PerItem, 20));
+            //inventory.Add(new Product(3, "Strawberry", "Lorem ipsum", new Price() { ItemPrice = 3, Currency = Currency.Euro }, UnitType.PerBox, 10));
+
+            ProductRepo productRepo = new();
+            inventory = productRepo.LoadProductsFromFile();
 
 
             Console.ForegroundColor = ConsoleColor.Green;
