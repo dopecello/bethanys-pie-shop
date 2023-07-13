@@ -130,6 +130,21 @@ namespace PieShop.InventoryMgmt
             }
         }
 
+        protected void DecreaseStock(int items, string reason)
+        {
+            if (items <= AmountInStock)
+            {
+                // decrease stock with the specified amount of items
+                AmountInStock -= items;
+            }
+            else
+            {
+                AmountInStock = 0;
+            }
+            UpdateLowStock();
+            Log(reason);
+        }
+
         public string DisplayDetailsShort()
         {
             return $"{id}. {name} \n{description}\n{AmountInStock} items(s) in stock.";
