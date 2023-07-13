@@ -17,13 +17,13 @@ namespace PieShop.InventoryMgmt
                 StockThreshold = newStockThreshold;
         }
 
-        private void Log(string message)
+        protected void Log(string message)
         {
             //this could be written to a file
             Console.WriteLine(message);
         }
 
-        private string CreateSimpleProductRepresentation()
+        protected string CreateSimpleProductRepresentation()
         {
             return $"Product {id} ({name})";
         }
@@ -34,22 +34,6 @@ namespace PieShop.InventoryMgmt
             {
                 IsBelowStockThreshold = true;
             }
-        }
-
-        private void DecreaseStock(int items, string reason)
-        {
-            if (items <= AmountInStock)
-            {
-                AmountInStock -= items;
-            }
-            else
-            {
-                AmountInStock = 0;
-            }
-
-            UpdateLowStock();
-
-            Log(reason);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace PieShop.InventoryMgmt.Domain.ProductMgmt
             return sb.ToString();
         }
 
-        public void UseBoxedProduct(int items)
+        public override void UseProduct(int items)
         {
             int smallestMultiple = 0;
             int batchSize;
@@ -53,7 +53,51 @@ namespace PieShop.InventoryMgmt.Domain.ProductMgmt
                     break;
                 }
             }
-            UseProduct(batchSize); //use base method.
+            base.UseProduct(batchSize); //use base method.
+        }
+
+        public override void IncreaseStock()
+        {
+            int newStock = 1;
+
+            if (IsBelowStockThreshold)
+            {
+                IncreaseStock(newStock);
+            }
+        }
+
+        public override void IncreaseStock(int amount)
+        {
+            int newStock = AmountInStock + amount * amountPerBox;
+
+            if (newStock <= maxItemsInStock)
+            {
+                AmountInStock += amount;
+            }
+            else
+            {
+                AmountInStock = maxItemsInStock; //only store the possible items, overstock isn't stored.
+                Log($"{CreateSimpleProductRepresentation} stock overflow. {newStock - AmountInStock} item(s) ordered that couldn't be stored.");
+            }
+            if (AmountInStock > StockThreshold)
+            {
+                IsBelowStockThreshold = false;
+            }
+        }
+
+        public override string DisplayDetailsFull()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("Boxed Product\n");
+            sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock.");
+
+            if (IsBelowStockThreshold)
+            {
+                sb.Append("\n!!STOCK LOW!!");
+            }
+
+            return sb.ToString();
         }
     }
 }

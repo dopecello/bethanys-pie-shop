@@ -14,7 +14,7 @@ namespace PieShop.InventoryMgmt
         private string name = string.Empty;
         private string? description;
 
-        private int maxItemsInStock = 0;
+        protected int maxItemsInStock = 0;
 
 
 
@@ -53,8 +53,8 @@ namespace PieShop.InventoryMgmt
         }
 
         public UnitType UnitType { get; set; }
-        public int AmountInStock { get; private set; } // this value is avail for use inside the class only.
-        public bool IsBelowStockThreshold { get; private set; }
+        public int AmountInStock { get; protected set; } // this value is avail for use inside the class and inheriting classes only.
+        public bool IsBelowStockThreshold { get; protected set; }
 
         public Price Price { get; set; }
 
@@ -92,7 +92,7 @@ namespace PieShop.InventoryMgmt
         //public Product()
         //{ } //default contructor: used to initialize an object
 
-        public void UseProduct(int items)
+        public virtual void UseProduct(int items)
         {
             if (items <= AmountInStock)
             { //use the items
@@ -106,12 +106,12 @@ namespace PieShop.InventoryMgmt
             }
         }
 
-        public void IncreaseStock()
+        public virtual void IncreaseStock()
         {
             AmountInStock++;
         }
 
-        public void IncreaseStock(int amount) //this is a method overloading because this method, although the same, accepts one param, while the previous one doesn't accept any.
+        public virtual void IncreaseStock(int amount) //this is a method overloading because this method, although the same, accepts one param, while the previous one doesn't accept any.
         {
             int newStock = AmountInStock + amount;
 
@@ -130,7 +130,7 @@ namespace PieShop.InventoryMgmt
             }
         }
 
-        protected void DecreaseStock(int items, string reason)
+        protected virtual void DecreaseStock(int items, string reason)
         {
             if (items <= AmountInStock)
             {
@@ -145,17 +145,17 @@ namespace PieShop.InventoryMgmt
             Log(reason);
         }
 
-        public string DisplayDetailsShort()
+        public virtual string DisplayDetailsShort()
         {
             return $"{id}. {name} \n{description}\n{AmountInStock} items(s) in stock.";
         }
 
-        public string DisplayDetailsFull()
+        public virtual string DisplayDetailsFull()
         {
             return DisplayDetailsFull("");
         }
 
-        public string DisplayDetailsFull(string extraDetails)
+        public virtual string DisplayDetailsFull(string extraDetails)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"{Id} {Name} \n{Description}\n{Price}\n{AmountInStock} item(s) in stock.");
